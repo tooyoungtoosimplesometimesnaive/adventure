@@ -1,0 +1,7 @@
+
+.sentence {
+	transform: rotateX(180deg);
+	animation: two 2s infinite;
+	animation-direction: alernate;
+}
+
