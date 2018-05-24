@@ -1,4 +1,4 @@
-const lookup = require('../index.js')
+const lookup = require('../lookup.js')
 
 lookup('滕王閣序').then(result => {
 	console.log(result)
