@@ -23,7 +23,7 @@ async function lookup (query) {
 
 	const $ = cheerio.load(body)
 	const title =  $('#firstHeading').text()
-	const content = $('#mw-content-text').text()
+	const content = $('.poem').text()
 
 	return {query, title, content}
 }
