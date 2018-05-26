@@ -1,5 +1,13 @@
 extends layout
 
 block content
-  h1 #{title}
-  pre #{content}
+  div(id='result-content')
+    h1 #{title}
+    pre #{content}
+
+  div(id='to-image-button')
+    input(id='to-image' type='button' value='转换成图片')
+
+  div(id='result-image-div')
+
+  script(src='javascripts/bundle.js' type='text/javascript')
