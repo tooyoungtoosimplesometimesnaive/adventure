@@ -10,8 +10,6 @@ async function lookup (query) {
 		pathname: `/zh/${query}`
 	})
 
-	console.log(url)
-
 	let body
 	try {
 		const res = await get(url)
@@ -23,9 +21,22 @@ async function lookup (query) {
 
 	const $ = cheerio.load(body)
 	const title =  $('#firstHeading').text()
-	const content = $('.poem').text()
+	let content = $('.poem').text()
 
-	return {query, title, content}
+	let isDisambiguation = false
+
+	if (content == '') {
+		isDisambiguation = true
+		const as = $('div.mw-parser-output li a')
+		
+		let i = 0
+		content = []
+		for (; i < as.length; i++) {
+			content.push(as[i].children[0].data)
+		}
+	}
+
+	return {query, title, content, isDisambiguation}
 }
 
 module.exports = lookup

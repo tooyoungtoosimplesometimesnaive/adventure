@@ -6,3 +6,9 @@ body {
 a {
   color: #00B7FF;
 }
+
+.disambiguation-list {
+  display: block;
+  cursor: pointer;
+  margin: 5px;
+}

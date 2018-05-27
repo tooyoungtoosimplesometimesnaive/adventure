@@ -11,6 +11,7 @@ router.post('/', function(req, res, next) {
   lookup(searchText).then(result => {
     res.render('result', result)
   }, error => {
+    console.log(error)
     res.send('respond with the lookup result using post');
   })
 });

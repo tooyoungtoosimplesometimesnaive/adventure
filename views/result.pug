@@ -3,11 +3,21 @@ extends layout
 block content
   div(id='result-content')
     h1 #{title}
-    pre #{content}
+    if isDisambiguation
+      h2 这是一个消歧义项
+      form(action="/lookup" method="POST")
+        each element in content
+          input(class="disambiguation-list"
+            type="submit"
+            name="searchText"
+            value=element)
+    else
+      pre #{content}
 
-  div(id='to-image-button')
-    input(id='to-image' type='button' value='转换成图片')
+  unless isDisambiguation
+    div(id='to-image-button')
+      input(id='to-image' type='button' value='转换成图片')
 
-  div(id='result-image-div')
+    div(id='result-image-div')
 
-  script(src='javascripts/bundle.js' type='text/javascript')
+    script(src='javascripts/bundle.js' type='text/javascript')

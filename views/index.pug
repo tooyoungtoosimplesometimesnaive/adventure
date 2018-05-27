@@ -2,8 +2,7 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
   form(action="/lookup" method="POST")
-    p Search here:
+    p 输入诗词标题
     input(type="text" name="searchText")
     input(type="submit")
