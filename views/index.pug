@@ -1,8 +1,9 @@
 extends layout
 
 block content
-  h1= title
-  form(action="/lookup" method="POST")
-    p 输入诗词标题
-    input(type="text" name="searchText")
-    input(type="submit")
+  main(class="main")
+    h1= title
+    form(action="/lookup" method="POST")
+      p 输入诗词标题
+      input(type="text" name="searchText")
+      input(type="submit")

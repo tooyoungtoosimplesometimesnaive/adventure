@@ -3,8 +3,35 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+/** common **/
 a {
   color: #00B7FF;
+}
+
+input[type="submit"] {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/** main **/
+.main {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+}
+
+.main h1, .main h2, .main p, .main pre {
+  text-align:center;
+}
+
+.main input {
+  display: flex;
+  justify-content: center;
+  flex-direction:column;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .disambiguation-list {

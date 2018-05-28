@@ -1,8 +1,8 @@
 extends layout
 
 block content
-  div(id='result-content')
-    h1 #{title}
+  main(class='main' id='result-content')
+    h1(id='poem-title') #{title}
     if isDisambiguation
       h2 这是一个消歧义项
       form(action="/lookup" method="POST")
@@ -12,11 +12,12 @@ block content
             name="searchText"
             value=element)
     else
-      pre #{content}
+      pre(id='poem-text') #{content}
 
   unless isDisambiguation
-    div(id='to-image-button')
+    div(id='buttons')
       input(id='to-image' type='button' value='转换成图片')
+      input(id='stts' type='button' value='繁简转换')
 
     div(id='result-image-div')
 
