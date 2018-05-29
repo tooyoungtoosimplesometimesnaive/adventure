@@ -2,17 +2,18 @@ extends layout
 
 block content
   main(class='main' id='result-content')
-    h1(id='poem-title') #{title}
-    if isDisambiguation
-      h2 这是一个消歧义项
-      form(action="/lookup" method="POST")
-        each element in content
-          input(class="disambiguation-list"
-            type="submit"
-            name="searchText"
-            value=element)
-    else
-      pre(id='poem-text') #{content}
+    div(id='poem-wrapper' class='poem-wrapper')
+      h1(id='poem-title') #{title}
+      if isDisambiguation
+        h2 这是一个消歧义项
+        form(action="/lookup" method="POST")
+          each element in content
+            input(class="disambiguation-list"
+              type="submit"
+              name="searchText"
+              value=element)
+      else
+        pre(id='poem-text') #{content}
 
   unless isDisambiguation
     div(id='buttons')
