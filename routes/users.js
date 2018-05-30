@@ -18,11 +18,16 @@ router.get('/', function(req, res, next) {
 router.post('/transform', function(req, res, next) {
   req.accepts('application/json')
   let text = req.body.text
+  const isT = req.body.isT
 
-  const Map = req.body.isT ? T_S : S_T
+  const Map = isT ? T_S : S_T
 
-  text = text.replace(/[^\x00-\xFF]/g, function(s){ return ((s in Map)?Map[s]:s)})
+  text = text.replace(/[^\x00-\xFF]/g, s => (s in Map)?Map[s]:s)
 
-  res.send(text)
+  res.setHeader('Content-Type', 'application/json')
+  res.send(JSON.stringify({
+    isT : !isT,
+    text: text
+  }))
 });
 module.exports = router;

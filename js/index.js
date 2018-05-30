@@ -2,18 +2,21 @@
 	var domtoimage = require('dom-to-image')
 	var toImageButton = document.getElementById('to-image')
 	var resultImgDiv = document.getElementById('result-image-div')
+	var poemText = document.getElementById('poem-text')
 
 	function toImage() {
     		var options = {
         		quality: 0.95 
     		}
 
-		var node = document.getElementById('result-content')
+		var node = document.getElementById('poem-wrapper')
     		domtoimage.toPng(node, options).then(function (dataUrl) {
 			var img = new Image()
 			img.src = dataUrl
 			resultImgDiv.appendChild(img)
-    		})
+    		}).catch(err => {
+			console.log(error)
+		})
 
 	}
 
@@ -32,13 +35,15 @@
 		xhr.setRequestHeader("Content-Type", "application/json")
 		xhr.send(JSON.stringify({
 			isT: isTraditional,
-			text: document.getElementById('poem-text').innerText
+			text: poemText.innerText
 		}))
 		xhr.onreadystatechange = result
 	}
 	function result() {
 		if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-			console.log(xhr.responseText)
+			const response = JSON.parse(xhr.responseText)
+			isTraditional = response.isT
+			poemText.innerText = response.text
 		}
 	}
 			

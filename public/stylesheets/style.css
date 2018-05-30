@@ -44,11 +44,13 @@ input[type="submit"] {
   display: inline-block;
   margin-left: auto;
   margin-right: auto;
-  background: white;
+  background: #efeed9;
+  color: #060c08;
   padding: 5px 15px 5px 15px;
   border-radius: 5px;
-  border-width: 1px;
-  border-color: black;
-  border-style: solid;
+}
+
+.align-center {
+  text-align: center;
 }
 
