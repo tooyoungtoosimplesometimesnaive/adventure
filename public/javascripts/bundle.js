@@ -71,6 +71,17 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./js/component.js":
+/*!*************************!*\
+  !*** ./js/component.js ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function createComponent(componentName, text, onClickCallback) {\n\tvar c = document.createElement(componentName)\n\tc.innerHTML = text\n\tc.onclick = onClickCallback\n\treturn c\n}\nmodule.exports = createComponent\n\n\n//# sourceURL=webpack:///./js/component.js?");
+
+/***/ }),
+
 /***/ "./js/index.js":
 /*!*********************!*\
   !*** ./js/index.js ***!
@@ -78,7 +89,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("(function () {\n\tvar domtoimage = __webpack_require__(/*! dom-to-image */ \"./node_modules/dom-to-image/src/dom-to-image.js\")\n\tvar toImageButton = document.getElementById('to-image')\n\tvar resultImgDiv = document.getElementById('result-image-div')\n\tvar poemText = document.getElementById('poem-text')\n\n\tfunction toImage() {\n    \t\tvar options = {\n        \t\tquality: 0.95 \n    \t\t}\n\n\t\tvar node = document.getElementById('poem-wrapper')\n    \t\tdomtoimage.toPng(node, options).then(function (dataUrl) {\n\t\t\tvar img = new Image()\n\t\t\timg.src = dataUrl\n\t\t\tresultImgDiv.appendChild(img)\n    \t\t}).catch(err => {\n\t\t\tconsole.log(error)\n\t\t})\n\n\t}\n\n\n\ttoImageButton.onclick = toImage\n\n\tvar sttsBtn = document.getElementById('stts')\n\n\tvar isTraditional = true\n\tvar xhr\n\n\tsttsBtn.onclick = makeRequest\n\tfunction makeRequest() {\n\t\txhr = new XMLHttpRequest()\n\t\txhr.open('POST', '/users/transform')\n\t\txhr.setRequestHeader(\"Content-Type\", \"application/json\")\n\t\txhr.send(JSON.stringify({\n\t\t\tisT: isTraditional,\n\t\t\ttext: poemText.innerText\n\t\t}))\n\t\txhr.onreadystatechange = result\n\t}\n\tfunction result() {\n\t\tif (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {\n\t\t\tconst response = JSON.parse(xhr.responseText)\n\t\t\tisTraditional = response.isT\n\t\t\tconsole.log(response.text)\n\t\t\tpoemText.innerText = response.text\n\t\t}\n\t}\n\t\t\t\n})()\n\n\n//# sourceURL=webpack:///./js/index.js?");
+eval("var domtoimage = __webpack_require__(/*! dom-to-image */ \"./node_modules/dom-to-image/src/dom-to-image.js\")\nvar createComponent = __webpack_require__(/*! ./component */ \"./js/component.js\")\n\nconst toImageButton = document.getElementById('to-image')\nconst resultImgDiv = document.getElementById('result-image-div')\nconst poemText = document.getElementById('poem-text')\nconst toolbar = document.getElementById('toolbar')\nconst poemWrapper = document.getElementById('poem-wrapper')\n\nlet domToImageStyle = {\n\tcolor: '#060c08',\n\tfontFamily: 'Noto Sans TC',\n\tfontSize: '14px',\n\tpadding: '5px 15px 5px 15px',\n\tborderRadius: '5px'\n}\n\nfunction toImage() {\n\tconsole.log(poemText.style)\n\n\tvar options = {\n\t\t/*\n        \tquality: 0.95,\n\t\tbgcolor: '#efeed9',\n\t\tstyle: domToImageStyle\n\t\t*/\n    \t}\n\tconsole.log(options)\n\n    \tdomtoimage.toPng(poemWrapper, options).then(function (dataUrl) {\n\t\tvar img = new Image()\n\t\timg.src = dataUrl\n\t\tresultImgDiv.appendChild(img)\n    \t}).catch(err => {\n\t\tconsole.log(error)\n\t})\n\n}\n\n\ntoImageButton.onclick = toImage\n\nvar sttsBtn = document.getElementById('stts')\n\nvar isTraditional = true\nvar xhr\n\nsttsBtn.onclick = makeRequest\nfunction makeRequest() {\n\txhr = new XMLHttpRequest()\n\txhr.open('POST', '/users/transform')\n\txhr.setRequestHeader(\"Content-Type\", \"application/json\")\n\txhr.send(JSON.stringify({\n\t\tisT: isTraditional,\n\t\ttext: poemText.innerText\n\t}))\n\txhr.onreadystatechange = result\n}\n\nfunction result() {\n\tif (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {\n\t\tconst response = JSON.parse(xhr.responseText)\n\t\tisTraditional = response.isT\n\t\tpoemText.innerText = response.text\n\t}\n}\n\n\n\nfunction createToolbar() {\n\tfunction fontSize(increase) {\n\t\tlet size = 14\n\t\tif (poemText.style.fontSize != '') {\n\t\t\tsize = +poemText.style.fontSize.substring(0, poemText.style.fontSize.indexOf('px'))\n\t\t\tconsole.log(size)\n\t\t}\n\t\tif (increase) {\n\t\t\tsize += 2\n\t\t} else {\n\t\t\tsize -= 2\n\t\t\tif (size < 8) {\n\t\t\t\tsize = 8\n\t\t\t}\n\t\t}\n\t\tpoemText.style.fontSize = size + 'px'\n\t\tdomToImageStyle['fontSize'] = poemText.style.fontSize\n\t}\n\t\t\n\tconst fontSizeIncreaseBtn = createComponent('button', '字体▲', () => {fontSize(true)})\n\tconst fontSizeDecreaseBtn = createComponent('button', '字体▼', () => {fontSize(false)})\n\ttoolbar.appendChild(fontSizeIncreaseBtn)\n\ttoolbar.appendChild(fontSizeDecreaseBtn)\n}\ncreateToolbar()\n\n\n//# sourceURL=webpack:///./js/index.js?");
 
 /***/ }),
 

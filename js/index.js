@@ -1,50 +1,94 @@
-(function () {
-	var domtoimage = require('dom-to-image')
-	var toImageButton = document.getElementById('to-image')
-	var resultImgDiv = document.getElementById('result-image-div')
-	var poemText = document.getElementById('poem-text')
+var domtoimage = require('dom-to-image')
+var createComponent = require('./component')
 
-	function toImage() {
-    		var options = {
-        		quality: 0.95 
-    		}
+const toImageButton = document.getElementById('to-image')
+const resultImgDiv = document.getElementById('result-image-div')
+const poemText = document.getElementById('poem-text')
+const toolbar = document.getElementById('toolbar')
+const poemWrapper = document.getElementById('poem-wrapper')
 
-		var node = document.getElementById('poem-wrapper')
-    		domtoimage.toPng(node, options).then(function (dataUrl) {
-			var img = new Image()
-			img.src = dataUrl
-			resultImgDiv.appendChild(img)
-    		}).catch(err => {
-			console.log(error)
-		})
+let domToImageStyle = {
+	color: '#060c08',
+	fontFamily: 'Noto Sans TC',
+	fontSize: '14px',
+	padding: '5px 15px 5px 15px',
+	borderRadius: '5px'
+}
 
+function toImage() {
+	console.log(poemText.style)
+
+	var options = {
+		/*
+        	quality: 0.95,
+		bgcolor: '#efeed9',
+		style: domToImageStyle
+		*/
+    	}
+	console.log(options)
+
+    	domtoimage.toPng(poemWrapper, options).then(function (dataUrl) {
+		var img = new Image()
+		img.src = dataUrl
+		resultImgDiv.appendChild(img)
+    	}).catch(err => {
+		console.log(error)
+	})
+
+}
+
+
+toImageButton.onclick = toImage
+
+var sttsBtn = document.getElementById('stts')
+
+var isTraditional = true
+var xhr
+
+sttsBtn.onclick = makeRequest
+function makeRequest() {
+	xhr = new XMLHttpRequest()
+	xhr.open('POST', '/users/transform')
+	xhr.setRequestHeader("Content-Type", "application/json")
+	xhr.send(JSON.stringify({
+		isT: isTraditional,
+		text: poemText.innerText
+	}))
+	xhr.onreadystatechange = result
+}
+
+function result() {
+	if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+		const response = JSON.parse(xhr.responseText)
+		isTraditional = response.isT
+		poemText.innerText = response.text
 	}
+}
 
 
-	toImageButton.onclick = toImage
 
-	var sttsBtn = document.getElementById('stts')
-
-	var isTraditional = true
-	var xhr
-
-	sttsBtn.onclick = makeRequest
-	function makeRequest() {
-		xhr = new XMLHttpRequest()
-		xhr.open('POST', '/users/transform')
-		xhr.setRequestHeader("Content-Type", "application/json")
-		xhr.send(JSON.stringify({
-			isT: isTraditional,
-			text: poemText.innerText
-		}))
-		xhr.onreadystatechange = result
-	}
-	function result() {
-		if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-			const response = JSON.parse(xhr.responseText)
-			isTraditional = response.isT
-			poemText.innerText = response.text
+function createToolbar() {
+	function fontSize(increase) {
+		let size = 14
+		if (poemText.style.fontSize != '') {
+			size = +poemText.style.fontSize.substring(0, poemText.style.fontSize.indexOf('px'))
+			console.log(size)
 		}
+		if (increase) {
+			size += 2
+		} else {
+			size -= 2
+			if (size < 8) {
+				size = 8
+			}
+		}
+		poemText.style.fontSize = size + 'px'
+		domToImageStyle['fontSize'] = poemText.style.fontSize
 	}
-			
-})()
+		
+	const fontSizeIncreaseBtn = createComponent('button', '字体▲', () => {fontSize(true)})
+	const fontSizeDecreaseBtn = createComponent('button', '字体▼', () => {fontSize(false)})
+	toolbar.appendChild(fontSizeIncreaseBtn)
+	toolbar.appendChild(fontSizeDecreaseBtn)
+}
+createToolbar()
