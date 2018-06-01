@@ -4,6 +4,7 @@ var createComponent = require('./component')
 const toImageButton = document.getElementById('to-image')
 const resultImgDiv = document.getElementById('result-image-div')
 const poemText = document.getElementById('poem-text')
+const poemTitle = document.getElementById('poem-title')
 const toolbar = document.getElementById('toolbar')
 const poemWrapper = document.getElementById('poem-wrapper')
 
@@ -30,9 +31,14 @@ function toImage() {
     	domtoimage.toPng(poemWrapper, options).then(function (dataUrl) {
 		var img = new Image()
 		img.src = dataUrl
-		resultImgDiv.appendChild(img)
+		var anchor = createComponent('a')
+		anchor.download = (poemTitle.innerHTML + '.png')
+		anchor.href = dataUrl
+		anchor.appendChild(img)
+
+		resultImgDiv.appendChild(anchor)
     	}).catch(err => {
-		console.log(error)
+		console.log(err)
 	})
 
 }

@@ -1,6 +1,8 @@
 function createComponent(componentName, text, onClickCallback) {
 	var c = document.createElement(componentName)
-	c.innerHTML = text
+	if (text) {
+		c.innerHTML = text
+	}
 	c.onclick = onClickCallback
 	return c
 }
