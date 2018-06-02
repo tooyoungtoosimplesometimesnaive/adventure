@@ -58,7 +58,8 @@ function makeRequest() {
 	xhr.setRequestHeader("Content-Type", "application/json")
 	xhr.send(JSON.stringify({
 		isT: isTraditional,
-		text: poemText.innerText
+		text: poemText.innerText,
+		title: poemTitle.innerText
 	}))
 	xhr.onreadystatechange = result
 }
@@ -68,6 +69,7 @@ function result() {
 		const response = JSON.parse(xhr.responseText)
 		isTraditional = response.isT
 		poemText.innerText = response.text
+		poemTitle.innerText = response.title
 	}
 }
 
