@@ -1,7 +1,7 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 /** common **/
@@ -47,7 +47,7 @@ input[type="submit"] {
   margin-right: auto;
   background: #efeed9;
   color: #060c08;
-  padding: 5px 15px 5px 15px;
+  padding: 6px 24px 6px 24px;
   border-radius: 5px;
 }
 

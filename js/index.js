@@ -74,7 +74,7 @@ function result() {
 
 function createToolbar() {
 	function fontSize(increase) {
-		let size = 14
+		let size = 18
 		if (poemText.style.fontSize != '') {
 			size = +poemText.style.fontSize.substring(0, poemText.style.fontSize.indexOf('px'))
 		}
