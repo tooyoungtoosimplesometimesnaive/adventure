@@ -17,8 +17,6 @@ let domToImageStyle = {
 }
 
 function toImage() {
-	console.log(poemText.style)
-
 	var options = {
 		/*
         	quality: 0.95,
@@ -26,7 +24,6 @@ function toImage() {
 		style: domToImageStyle
 		*/
     	}
-	console.log(options)
 
     	domtoimage.toPng(poemWrapper, options).then(function (dataUrl) {
 		var img = new Image()
@@ -80,7 +77,6 @@ function createToolbar() {
 		let size = 14
 		if (poemText.style.fontSize != '') {
 			size = +poemText.style.fontSize.substring(0, poemText.style.fontSize.indexOf('px'))
-			console.log(size)
 		}
 		if (increase) {
 			size += 2

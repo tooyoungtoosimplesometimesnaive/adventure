@@ -1,6 +1,13 @@
 extends layout
 
 block content
+  unless isDisambiguation
+    div(id='buttons')
+      input(id='to-image' type='button' value='转换成图片')
+      input(id='stts' type='button' value='繁简转换')
+
+    div(id='toolbar')
+
   main(class='main' id='result-content')
     div(class='align-center')
       div(id='poem-wrapper' class='poem-wrapper')
@@ -16,13 +23,7 @@ block content
         else
           pre(id='poem-text') #{content}
 
+
   unless isDisambiguation
-    div(id='buttons')
-      input(id='to-image' type='button' value='转换成图片')
-      input(id='stts' type='button' value='繁简转换')
-
-    div(id='toolbar')
-
     div(id='result-image-div')
-
     script(src='javascripts/bundle.js' type='text/javascript')
