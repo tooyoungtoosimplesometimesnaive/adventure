@@ -1,11 +1,3 @@
-[root]
-name = "hello-rocket"
-version = "0.1.0"
-dependencies = [
- "rocket 0.3.12 (registry+https://github.com/rust-lang/crates.io-index)",
- "rocket_codegen 0.3.12 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
 [[package]]
 name = "arrayvec"
 version = "0.4.7"
@@ -107,6 +99,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 name = "gcc"
 version = "0.3.54"
 source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "hello-rocket"
+version = "0.1.0"
+dependencies = [
+ "rocket 0.3.12 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rocket_codegen 0.3.12 (registry+https://github.com/rust-lang/crates.io-index)",
+]
 
 [[package]]
 name = "httparse"
